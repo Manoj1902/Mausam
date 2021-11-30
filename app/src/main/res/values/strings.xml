@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Mausam</string>
+    <string name="dialog_title">
+        App Info
+    </string>
+    <string name="dialog_body">
+        Created by: MSK Co. Pvt. Ltd.
+        Version: 1.0.0
+        Email: sh.Manoj1902@gmail.com
+        Developer: Manoj Kumar
+    </string>
+
+</resources>
