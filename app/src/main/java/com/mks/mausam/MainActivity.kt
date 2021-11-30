@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     @SuppressLint("SetTextI18n")
     private fun setValues(response: JSONObject?) {
         address.text = response?.getString("name")
@@ -78,6 +80,11 @@ class MainActivity : AppCompatActivity() {
         var long = response?.getJSONObject("coord")?.getString("lon")
         temp.text = "${lat} , ${long}"
         status.text = response?.getJSONArray("weather")?.getJSONObject(0)?.getString("main")
+        val weatherStatus = response?.getJSONArray("weather")?.getJSONObject(0)?.getString("main").toString()
+
+
+        weatherImage(weatherStatus)
+
 
 //        Temperature
         var tempr = response?.getJSONObject("main")?.getString("temp")
@@ -138,9 +145,22 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
 
+
         }
 
         progressBar.visibility = View.GONE
+    }
+
+    private fun weatherImage(weatherStatus: String) {
+        Toast.makeText(this, weatherStatus, Toast.LENGTH_LONG).show()
+        when (weatherStatus) {
+            "Clouds" -> status_img.setImageResource(R.drawable.clouds)
+            "Rain" -> status_img.setImageResource(R.drawable.heavy_rain)
+            "Clear" -> status_img.setBackgroundResource(R.drawable.clear)
+            else -> {
+                Toast.makeText(this, "Cannot fetch image", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
 
