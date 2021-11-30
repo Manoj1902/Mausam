@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
     lateinit var mfusedLocation: FusedLocationProviderClient
     private var myRequestCode = 123
-
+ 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
