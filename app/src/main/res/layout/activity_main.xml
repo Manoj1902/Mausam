@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:padding="20dp"
-    android:background="@drawable/gradient_bg">
+    android:background="@drawable/day"
+    android:id="@+id/activity_background">
 
     <RelativeLayout
         android:id="@+id/mainContainer"
@@ -68,10 +69,9 @@
 
             <ImageView
                 android:id="@+id/status_img"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="4dp"
-                />
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp" />
 
             <TextView
                 android:id="@+id/status"
@@ -121,7 +121,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="22dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -131,6 +130,7 @@
                 android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/sun_rise_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -169,6 +169,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/sun_set_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -207,6 +208,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/wind_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -257,6 +259,7 @@
                 android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/pressure_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -295,6 +298,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/humidity_box"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -378,9 +382,9 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="14dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="28dp"
                 android:backgroundTint="#8121ff"
+                android:padding="14dp"
                 android:text="Update Now"
                 android:textAlignment="center"
                 android:textAllCaps="false" />

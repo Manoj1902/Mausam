@@ -2,20 +2,18 @@ package com.mks.mausam
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.core.view.drawToBitmap
-import androidx.fragment.app.DialogFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.custom_dialog.*
 import kotlinx.android.synthetic.main.custom_dialog.view.*
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -63,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             Response.Listener { response ->
                 setValues(response)
             },
-            Response.ErrorListener { Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show() })
+            Response.ErrorListener { Toast.makeText(this, "Connection Error!", Toast.LENGTH_LONG).show() })
 
 // Add the request to the RequestQueue.
         queue.add(jsonRequest)
@@ -83,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         val weatherStatus = response?.getJSONArray("weather")?.getJSONObject(0)?.getString("main").toString()
 
 
-        weatherImage(weatherStatus)
+
 
 
 //        Temperature
@@ -114,6 +112,14 @@ class MainActivity : AppCompatActivity() {
             updateAt!! * 1000))
 
         updated_at.text = "Update at: ${updateAtText.toString()}"
+//        Am or Pm
+        var amPm = updateAtText.toString()
+        var time = amPm.substring(amPm.length - 2, amPm.length)
+//        var time = "AM"
+        Log.e("Time: ", time);
+
+        weatherImage(weatherStatus, time)
+
 
 //        Sunrise At
         var sunrise: Long? = response?.getJSONObject("sys")?.getLong("sunrise")
@@ -141,6 +147,17 @@ class MainActivity : AppCompatActivity() {
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
             dialog.setCancelable(false)
 
+            if ((time == "PM") || (time == "pm") || (time == "Pm") || (time == "pM")){
+                view.dialog_box.setBackgroundColor(Color.parseColor("#212121"))
+                view.dialog_title.setTextColor(Color.parseColor("#FFFFFF"))
+                view.second_line.setTextColor(Color.parseColor("#FFFFFF"))
+                view.okBtn.setBackgroundColor(Color.parseColor("#212121"))
+                view.okBtn.setTextColor(Color.parseColor("#FFFFFF"))
+
+            }
+
+
+
             view.okBtn.setOnClickListener{
                 dialog.dismiss()
             }
@@ -151,16 +168,40 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
     }
 
-    private fun weatherImage(weatherStatus: String) {
-        Toast.makeText(this, weatherStatus, Toast.LENGTH_LONG).show()
+    private fun weatherImage(weatherStatus: String, time: String) {
+//        Toast.makeText(this, weatherStatus, Toast.LENGTH_LONG).show()
         when (weatherStatus) {
             "Clouds" -> status_img.setImageResource(R.drawable.clouds)
             "Rain" -> status_img.setImageResource(R.drawable.heavy_rain)
             "Clear" -> status_img.setBackgroundResource(R.drawable.clear)
+            "Mist" -> status_img.setBackgroundResource(R.drawable.mist)
+            "Drizzle" -> status_img.setBackgroundResource(R.drawable.drizzle)
+            "Thunderstorm" -> status_img.setBackgroundResource(R.drawable.thunderstorm)
+            "Haze" -> status_img.setBackgroundResource(R.drawable.haze)
+            "Fog" -> status_img.setBackgroundResource(R.drawable.fog)
+
             else -> {
-                Toast.makeText(this, "Cannot fetch image", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Connection Error!", Toast.LENGTH_LONG).show()
             }
         }
+
+        if ((time == "AM") || (time == "am") || (time == "Am") || (time == "aM")){
+            activity_background.setBackgroundResource(R.drawable.day)
+        }
+        if ((time == "PM") || (time == "pm") || (time == "Pm") || (time == "pM")){
+            activity_background.setBackgroundResource(R.drawable.night)
+            window.statusBarColor= Color.parseColor("#2A0A57")
+            sun_rise_box.setBackgroundColor(Color.parseColor("#4D305C"))
+            sun_set_box.setBackgroundColor(Color.parseColor("#4D305C"))
+            wind_box.setBackgroundColor(Color.parseColor("#4D305C"))
+            pressure_box.setBackgroundColor(Color.parseColor("#4D305C"))
+            humidity_box.setBackgroundColor(Color.parseColor("#4D305C"))
+            info.setBackgroundColor(Color.parseColor("#4D305C"))
+            button.setBackgroundColor(Color.parseColor("#3A0F73"))
+
+        }
+
+
     }
 
 
